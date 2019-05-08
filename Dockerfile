@@ -9,7 +9,7 @@ ENV CROSS_COMPILE=/usr/bin/
 # #2:   20190130 - Added python3-lxml, libxslt-dev, libxml2-dev and zlib1g-dev for https://www.home-assistant.io/components/device_tracker.fritz/
 RUN apt-get -y update && \
     apt-get -y upgrade && \
-    apt-get -y install --no-install-recommends \
+    apt-get -y install \
         build-essential libssl-dev python3 python3-venv python3-pip libffi-dev python3-dev python3-setuptools \
         python3-lxml libxslt-dev libxml2-dev zlib1g-dev && \
     useradd -rm homeassistant -G dialout && \

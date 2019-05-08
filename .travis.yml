@@ -12,9 +12,9 @@ env:
     - HA_VERSION="$(curl 'https://pypi.org/pypi/homeassistant/json' | grep -Po '\"version\"\s*:\s*\"\K[^\"]+')"
     - REPO_VERSION="$(curl -u ${TRAVIS_REPO_SLUG%/*}:$GITHUB_TOKEN https://api.github.com/repos/$TRAVIS_REPO_SLUG/releases/latest | grep -Po '\"tag_name\"\s*:\s*\"\K[^\"|\-]+')"
 
-before_install:
-  - echo "HA_VERSION=$HA_VERSION"
-  - echo "REPO_VERSION=$REPO_VERSION"
+# before_install:
+#  - echo "HA_VERSION=$HA_VERSION"
+#  - echo "REPO_VERSION=$REPO_VERSION"
   - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH"
   - echo "TRAVIS_TAG=$TRAVIS_TAG"
   - |
@@ -43,17 +43,17 @@ before_deploy:
     fi
   - echo "$DOCKER_PASSWORD" | docker login -u "${TRAVIS_REPO_SLUG%/*}" --password-stdin
 
-deploy:
-  - provider: script
-    script: docker push $TRAVIS_REPO_SLUG:$HA_VERSION &&
-      docker tag $TRAVIS_REPO_SLUG:$HA_VERSION $TRAVIS_REPO_SLUG &&
-      docker push $TRAVIS_REPO_SLUG &&
-      docker tag $TRAVIS_REPO_SLUG:$HA_VERSION $TRAVIS_REPO_SLUG:latest &&
-      docker push $TRAVIS_REPO_SLUG:latest
-    skip_cleanup: true
-    on:
-      tags: true
-  - provider: releases
+# deploy:
+#  - provider: script
+#    script: docker push $TRAVIS_REPO_SLUG:$HA_VERSION &&
+#      docker tag $TRAVIS_REPO_SLUG:$HA_VERSION $TRAVIS_REPO_SLUG &&
+#      docker push $TRAVIS_REPO_SLUG &&
+#      docker tag $TRAVIS_REPO_SLUG:$HA_VERSION $TRAVIS_REPO_SLUG:latest &&
+#      docker push $TRAVIS_REPO_SLUG:latest
+#    skip_cleanup: true
+#    on:
+#      tags: true
+#  - provider: releases
     api_key: $GITHUB_TOKEN
     file: Dockerfile
     on:

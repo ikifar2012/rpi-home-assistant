@@ -11,7 +11,7 @@ RUN apt-get -y update && \
     apt-get -y upgrade && \
     apt-get -y install \
         build-essential libssl-dev python3 python3-venv python3-pip libffi-dev python3-dev python3-setuptools &&\
-        # python3-lxml libxslt-dev libxml2-dev zlib1g-dev && \
+    apt-get python3-lxml libxslt-dev libxml2-dev zlib1g-dev && \
     useradd -rm homeassistant -G dialout && \
     apt-get -y remove --auto-remove && \
     apt-get -y clean && \
